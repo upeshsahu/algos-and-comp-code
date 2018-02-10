@@ -1,0 +1,128 @@
+Contains Following Codes :-
+
+1) Prime Check using Sieve of Eratosthenes
+2) Storing all Primes upto 10^6
+3) Precalculating number of Prime Factors Of every number upto 10^6
+4) Storing Actual Prime Factors of every number upto 10^6
+5) Precalculating sum of divisors of every number upto 10^6
+6) Precalculating for every number upto 10^6 whether its square free or not.
+
+
+// Sieve OF Eratosthenes
+bitset<1000005>P;
+int npf[1000005];   // Stores count of number of prime factors of a number
+vl primeFactors(1000000);  // Stores actual prime factors of a number
+vi primes;  // Stores primes upto 10^6
+int sDiv[1000005],isSF[1000005];
+
+P.set();
+P[0]=false;
+P[1]=false;
+
+for(int i=2;i*i<=1000000;i++)
+  if(P[i]==true)
+     for(int j=i*i;j<=1000000;j+=i)
+         P[j] = false;
+
+
+// Storing all primes upto 10^6
+
+for(int i=2;i<=1000000;i++) if(P[i])primes.pb(i);
+
+
+// Counting number of prime factors
+// Storing Actual Primes Factors Of A Number
+
+for(int i=0;i<=1000000;++i)
+  npf[i]=0;
+
+
+for(int i=2;i<=1000000;++i){
+
+   if(npf[i]==0){
+     npf[i]=1;
+     primeFactors[i].pb(i);
+     for(int j=i*2;j<=1000000;j+=i){
+       npf[j]++;
+       primeFactors[j].pb(i);
+     }
+   }
+}
+
+/* Precalculating sum of divisors of numbers */
+for(int i=1;i<=1000000;++i)
+  sDiv[i]=1;
+
+for(int i=2;i<=1000000;i++){
+  for(int j=i;j<=1000000;j+=i)
+     sDiv[j]+=i;
+}
+
+
+// Precalculating whether a number is square free or not.
+
+for(int i=0;i<=100000;++i)
+  isSF[i]=1;
+
+
+for(int i=1;i<=100000;++i){
+   for(int j=0;j<(int)primes.size() && (primes[j]*primes[j])<=i;++j){
+
+     int x=primes[j];
+     int num=i;
+     if(x>num)break;
+     if(num%x)continue;
+     num/=x;
+     if(num%x==0){
+         isSF[i]=0;
+         break;
+     }
+   }
+}
+
+// Calculating number of factors of a number n( upto 10^18 ) in O(n^(1/3))
+
+int ans=1;
+
+for(int i=0;i<primes.size();++i){
+
+    int p=primes[i];
+   
+    if(p*p*p>n){
+      
+       break;
+    }
+    
+    int count=1;
+    
+    while(n%p==0){
+    
+        n=n/p;
+        ++count;
+    
+    }
+    
+    ans*=count;
+ 
+
+}
+
+if(isPrime(n)){       // isPrime(n) can be done by Miller Rabin
+   
+   ans=ans*2;
+ 
+}
+
+else if(isPrime(sqrt(n))){
+
+   ans=ans*3;
+
+}
+
+else if(n!=1){
+
+    ans=ans*4;
+
+}
+
+cout<<ans<<"\n";

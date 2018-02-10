@@ -1,0 +1,36 @@
+long long seg[400011],a[400011];
+
+long long construct(int node,int start,int end){
+
+    if(start==end){
+        seg[node]=a[start];
+        return seg[node];
+    }
+    int mid=(start+end)>>1;
+
+    int left=construct(node*2,start,mid);
+
+    int right=construct(node*2+1,mid+1,end);
+
+    seg[node]=min(left,right);
+   
+    return seg[node];
+   
+}
+
+long long range_min(int node,int start,int end,int left,int right){
+
+
+    if(start>right||end<left)
+        return max;
+
+    if(start>=left && end<=right)
+         return seg[node];
+
+   int mid=(start+end)>>1;
+
+    return min(range_min(node*2,start,mid,left,right),range_min(node*2+1,mid+1,end,left,right));
+}
+
+// To build tree:- construct(1,1,n) 
+// To build find minimum value in given range [l,r] :- range_min(1,1,n,l,r)

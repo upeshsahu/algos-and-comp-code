@@ -1,0 +1,21 @@
+// If lines are in the form   :-  A1x + B1y = C1  and A2x + B2y = C2
+
+then :-  
+
+    double det = A1*B2 - A2*B1
+    if(det == 0){
+        //Lines are parallel
+    }else{
+        double x = (B2*C1 - B1*C2)/det
+        double y = (A1*C2 - A2*C1)/det
+    }
+    
+// If lines are actually line segment then we have to check than x and y which are found lie on both line segments
+
+   Suppose line segment 1 goes from (x1,y1) to (x2,y2) then :- 
+        
+       then min(x1,x2)<=x<=max(x1,x2)
+       
+       and  min(y1,y2)<=y<=max(y1,y2)
+      
+         

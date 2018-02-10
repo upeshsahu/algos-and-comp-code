@@ -1,0 +1,36 @@
+vector<list<int> >adjacencyList(vertices+1);
+
+int parent[vertices+1];
+int level[vertices+1];
+
+memset(parent,0,sizeof(parent));
+memset(level,-1,sizeof(level));
+
+level[start]=0;
+
+list<int>VertexQueue;  // Queue for implementing BFS
+
+VertexQueue.push_back(s); 
+
+while(!VertexQueue.empty()){
+	
+    int newvertex=VertexQueue.front();
+    
+    // do something......
+
+    for(....){
+
+      if(....){
+
+
+         VertexQueue.push_back(somevertex);
+
+      }
+
+    } 
+
+     VertexQueue.pop_front();
+
+}
+
+
